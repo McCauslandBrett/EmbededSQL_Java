@@ -24,12 +24,12 @@
 
 -- • Find the total number of parts supplied by each supplier.
 SELECT COUNT(C.pid), C.sid
-FROM Catalog C
+FROM catalog C
 GROUP BY C.sid;
 -- • Find the total number of parts supplied by each supplier who
 -- supplies at least 3 parts.
 SELECT COUNT(C.pid) AS PartCount, C.sid
-FROM Catalog C
+FROM catalog C
 GROUP BY C.sid
 HAVING COUNT(PartCount)>3;
 
@@ -41,19 +41,19 @@ HAVING max(Quantity) > ALL (SELECT avg(Quantity)
                             GROUP BY OrderID);
 -- • For every supplier that supplies only green parts,
 -- print the name of the supplier and the total number of parts that he supplies.
-SELECT COUNT(C.pid) AS PartCount, C.sid,P.color
-FROM Catalog C, parts P
-GROUP BY C.sid
-WHERE PartCount,C.sid,P.color = ALL(SELECT P.color
-                                    FROM parts P
-                                    where P.color='green');
+-- SELECT COUNT(C.pid) AS PartCount, C.sid,P.color
+-- FROM catalog C, parts P
+-- GROUP BY C.sid
+-- WHERE PartCount,C.sid,P.color = ALL(SELECT P.color
+--                                     FROM parts P
+--                                     where P.color='green');
 -- WHERE ProductID = ALL (SELECT ProductId
 --                        FROM OrderDetails
 --                        WHERE Quantity = 6 OR Quantity = 2);
 
-IN AND NOT IN
-
-GROUP BY C.sid;
+-- IN AND NOT IN
+--
+-- GROUP BY C.sid;
 
 -- • For every supplier that supplies green part and red part,
 -- print the name of the supplier and the price of
