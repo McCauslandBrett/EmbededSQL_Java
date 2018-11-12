@@ -35,7 +35,7 @@ HAVING COUNT(C.pid) >= 3;
             -- and P2.pid = C2.pid
             -- and P2.Color != 'Green')
             -- GROUP BY S2.sid
-SELECT COUNT(C.pid),S.sid
+SELECT COUNT(C.pid)
 FROM Suppliers S, Parts P, Catalog C
 WHERE P.pid = C.pid
 and S.sid = C.sid
