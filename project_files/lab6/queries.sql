@@ -18,8 +18,8 @@ HAVING COUNT(C.pid) >= 3;
 --   -- parts that he supplies.
 SELECT COUNT(C.pid),S.sname
 FROM Suppliers S, Parts P, Catalog C
--- WHERE P.pid = C.pid
--- and S.sid = C.sid
+WHERE P.pid = C.pid
+and S.sid = C.sid
 -- and S.sid
 -- IN (SELECT S1.sid
 --     FROM Suppliers S1, Parts P1, Catalog C1
