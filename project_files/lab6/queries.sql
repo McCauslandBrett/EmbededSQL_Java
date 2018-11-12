@@ -6,10 +6,10 @@ FROM Catalog C
 GROUP BY C.sid;
 -- • Find the total number of parts supplied by each supplier who
 -- supplies at least 3 parts.
-SELECT COUNT(C.pid) AS PartCount, C.sid,
-FROM Catalog C,
-GROUP BY C.sid,
-HAVING COUNT(PartCount)>3;
+-- SELECT COUNT(C.pid) AS PartCount, C.sid,
+-- FROM Catalog C,
+-- GROUP BY C.sid,
+-- HAVING COUNT(PartCount)>3;
 --  -- For every supplier that supplies only green parts,
 --   -- print the name of the supplier and the total number of
 --   -- parts that he supplies.
