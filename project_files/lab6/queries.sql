@@ -46,11 +46,11 @@ and Suppliers.sid = Catalog.sid
 --             and P2.Color != 'Green'
 --           );
 
-SELECT S.sname, COUNT(*) as PartCount
-FROM Suppliers S, Catalog C, Parts P
-WHERE C.sid = S.id and P.id = C.pid and P.color = 'GREEN'
-GROUP BY S.sname, S.id
-
+-- SELECT S.sname, COUNT(*) as PartCount
+-- FROM Suppliers S, Catalog C, Parts P
+-- WHERE C.sid = S.id and P.id = C.pid and P.color = 'GREEN'
+-- GROUP BY S.sname, S.id
+-- 
 
 
 
