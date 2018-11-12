@@ -5,16 +5,9 @@ SELECT COUNT(C.pid), C.sid
 FROM Catalog C
 GROUP BY C.sid;
 
--- SELECT COUNT(C.pid),C.sid,S.sname
--- FROM Suppliers S, Catalog C
--- WHERE S.sid = C.sid
--- GROUP BY C.sid
 -- • Find the total number of parts supplied by each supplier who
 -- supplies at least 3 parts.
--- SELECT COUNT(C.pid) AS PartCount,C.sid,S.sname
--- FROM Catalog C,Suppliers S
--- GROUP BY C.sid
--- HAVING COUNT(PartCount)>3;
+
 SELECT COUNT(C.pid),S.sid,S.sname
 FROM Suppliers S, Catalog C
 WHERE S.sid = C.sid
@@ -35,13 +28,14 @@ HAVING COUNT(C.pid) >= 3;
 --     and P1.pid= C1.pid
 --     and P1.color= 'Green')
 --     and S1.sid
---     NOT IN (SELECT S2.sid
---             FROM Suppliers S2, Parts P2, Catalog C2
---             WHERE S2.sid = C2.sid
---             and P2.pid = C2.pid
---             and P2.Color != 'Green')
---             GROUP BY S2.sid
---
+--     NOT IN (
+            SELECT S2.sid
+            FROM Suppliers S2, Parts P2, Catalog C2
+            WHERE S2.sid = C2.sid
+            and P2.pid = C2.pid
+            and P2.Color != 'Green')
+            GROUP BY S2.sid
+
 -- -- For every supplier that supplies green part and red part,
 -- -- print the name of the supplier and the price of
 -- -- the most expensive part that he supplies.
