@@ -28,12 +28,12 @@ HAVING COUNT(C.pid) >= 3;
 --     and P1.pid= C1.pid
 --     and P1.color= 'Green')
 --     and S1.sid
---     NOT IN (
+            NOT IN (
             SELECT S2.sid
             FROM Suppliers S2, Parts P2, Catalog C2
             WHERE S2.sid = C2.sid
             and P2.pid = C2.pid
-            and P2.Color != 'Green'--)
+            and P2.Color != 'Green')
             GROUP BY S2.sid
 
 -- -- For every supplier that supplies green part and red part,
