@@ -10,11 +10,11 @@ GROUP BY C.sid;
 -- FROM Catalog C,Suppliers S
 -- GROUP BY C.sid
 -- HAVING COUNT(PartCount)>3;
-SELECT Suppliers.sid, COUNT(Catalog.pid)
-FROM Suppliers, Catalog
-WHERE Suppliers.sid = Catalog.sid
-GROUP BY Suppliers.sid
-HAVING COUNT(Catalog.pid) >= 3;
+SELECT COUNT(Catalog.pid),Suppliers.sid
+FROM Suppliers S, Catalog C
+WHERE S.sid = C.sid
+GROUP BY S.sid
+HAVING COUNT(C.pid) >= 3;
 --  -- For every supplier that supplies only green parts,
 --   -- print the name of the supplier and the total number of
 --   -- parts that he supplies.
