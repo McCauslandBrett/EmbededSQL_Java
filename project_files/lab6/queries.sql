@@ -4,7 +4,8 @@
 -- SELECT COUNT(C.pid), C.sid
 -- FROM Catalog C
 -- GROUP BY C.sid;
-SELECT COUNT(C.pid),S.sid,S.sname
+
+SELECT COUNT(C.pid),C.sid,S.sname
 FROM Suppliers S, Catalog C
 WHERE S.sid = C.sid
 GROUP BY C.sid
