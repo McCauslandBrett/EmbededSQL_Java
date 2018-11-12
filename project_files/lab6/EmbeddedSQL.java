@@ -263,7 +263,7 @@ public class EmbeddedSQL {
 
    public static void Query2(EmbeddedSQL esql){
      //2. Find the total number of parts supplied by each supplier who supplies at least 3 parts");
-     try{
+     //try{
      //  String query =
      //  "SELECT COUNT(C.pid) AS PartCount, C.sid,
      //   FROM catalog C,
@@ -273,11 +273,11 @@ public class EmbeddedSQL {
      // }catch(Exception e){
      //    System.err.println (e.getMessage());
      // }
-   }//end Query2
+   //}//end Query2
 }
    public static void Query3(EmbeddedSQL esql){
     //3. For every supplier that supplies only green parts, print the name of the supplier and the total number of parts that he supplies");
-     try{
+     //try{
     //  String query =
     //  "SELECT COUNT(C.pid),S.sid,S.sname
     //  FROM Suppliers S, Catalog C
@@ -293,7 +293,7 @@ public class EmbeddedSQL {
     //  esql.executeQuery(query);
     // }catch(Exception e){
     //    System.err.println (e.getMessage());
-     }
+    // }
    }//end Query3
 
    public static void Query4(EmbeddedSQL esql){
