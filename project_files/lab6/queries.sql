@@ -10,7 +10,7 @@ GROUP BY C.sid;
 -- FROM Catalog C,Suppliers S
 -- GROUP BY C.sid
 -- HAVING COUNT(PartCount)>3;
-SELECT COUNT(C.pid),Suppliers.sid
+SELECT COUNT(C.pid),S.sid
 FROM Suppliers S, Catalog C
 WHERE S.sid = C.sid
 GROUP BY S.sid
