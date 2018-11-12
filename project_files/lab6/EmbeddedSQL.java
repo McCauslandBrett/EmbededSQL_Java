@@ -152,7 +152,7 @@ public class EmbeddedSQL {
             " <dbname> <port> <user>");
          return;
       }//end if
-      
+
       Greeting();
       EmbeddedSQL esql = null;
       try{
@@ -174,7 +174,7 @@ public class EmbeddedSQL {
             System.out.println("1. Find the total number of parts supplied by each supplier");
             System.out.println("2. Find the total number of parts supplied by each supplier who supplies at least 3 parts");
             System.out.println("3. For every supplier that supplies only green parts, print the name of the supplier and the total number of parts that he supplies");
-            System.out.println("4. For every supplier that supplies green part and red part, print the name and the price of the most expensive part that he supplies"); 
+            System.out.println("4. For every supplier that supplies green part and red part, print the name and the price of the most expensive part that he supplies");
             System.out.println("5. Find the name of parts with cost lower than $_____");
             System.out.println("6. Find the address of the suppliers who supply _____________ (pname)");
             System.out.println("9. < EXIT");
@@ -206,7 +206,7 @@ public class EmbeddedSQL {
          }//end try
       }//end try
    }//end main
-   
+
    public static void Greeting(){
       System.out.println(
          "\n\n*******************************************************\n" +
@@ -247,41 +247,89 @@ public class EmbeddedSQL {
          System.err.println (e.getMessage());
       }
    }//end QueryExample
-   
+
    public static void Query1(EmbeddedSQL esql){
-      // Your code goes here.
-      // ...
-      // ...
+     //1. Find the total number of parts supplied by each supplier");
+     try{
+        String query = "
+        SELECT COUNT(C.pid), C.sid
+        FROM catalog C
+        GROUP BY C.sid;";
+        esql.executeQuery(query);
+     }catch(Exception e){
+        System.err.println (e.getMessage());
+     }
    }//end Query1
 
    public static void Query2(EmbeddedSQL esql){
-      // Your code goes here.
-      // ...
-      // ...
+     //2. Find the total number of parts supplied by each supplier who supplies at least 3 parts");
+     try{
+      String query =
+      "SELECT COUNT(C.pid) AS PartCount, C.sid,
+       FROM catalog C,
+       GROUP BY C.sid,
+       HAVING COUNT(PartCount)>3;";
+      esql.executeQuery(query);
+     }catch(Exception e){
+        System.err.println (e.getMessage());
+     }
    }//end Query2
 
    public static void Query3(EmbeddedSQL esql){
-      // Your code goes here.
-      // ...
-      // ...
+    //3. For every supplier that supplies only green parts, print the name of the supplier and the total number of parts that he supplies");
+    try{
+     String query =
+     "SELECT COUNT(C.pid),S.sid,S.sname
+     FROM Suppliers S, Catalog C
+     WHERE S.sid = C.sid
+     and S.sid = C.sid
+     and S.sid NOT IN (
+               SELECT S2.sid
+               FROM Suppliers S2, Parts P2, Catalog C2
+               WHERE S2.sid = C2.sid
+               and P2.pid = C2.pid
+               and P2.Color != 'Green')
+     GROUP BY S.sid;";
+     esql.executeQuery(query);
+    }catch(Exception e){
+       System.err.println (e.getMessage());
+    }
    }//end Query3
 
    public static void Query4(EmbeddedSQL esql){
-      // Your code goes here.
-      // ...
-      // ...
+     //4. For every supplier that supplies green part and red part, print the name and the price of the most expensive part that he supplies");
+     try{
+      String query =
+      "SELECT Suppliers.sname, MAX(Catalog.cost)
+      FROM Suppliers, Catalog, Parts
+      WHERE Parts.pid = Catalog.pid
+      and Suppliers.sid = Catalog.sid
+      and Suppliers.sid
+          IN(SELECT Suppliers.sid
+             FROM Suppliers, Parts , Catalog
+             WHERE Suppliers.sid = Catalog.sid
+             and Parts.pid = Catalog.pid
+             and Parts.color = 'Red')
+      and Suppliers.sid
+           IN(SELECT Suppliers.sid
+              FROM Suppliers,Parts,Catalog
+              WHERE Suppliers.sid = Catalog.sid
+              and Parts.pid=Catalog.pid
+              and Parts.color = 'Green')
+      Group BY Suppliers.sname";
+      esql.executeQuery(query);
+     }catch(Exception e){
+        System.err.println (e.getMessage());
+     }
    }//end Query4
 
    public static void Query5(EmbeddedSQL esql){
-      // Your code goes here.
-      // ...
-      // ...
+     //5. Find the name of parts with cost lower than $_____");
+
    }//end Query5
 
    public static void Query6(EmbeddedSQL esql){
-      // Your code goes here.
-      // ...
-      // ...
+    //6. Find the address of the suppliers who supply _____________ (pname)");
    }//end Query6
 
 }//end EmbeddedSQL
