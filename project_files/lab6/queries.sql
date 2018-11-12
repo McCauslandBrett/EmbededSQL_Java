@@ -39,8 +39,8 @@ SELECT COUNT(C.pid)
 FROM Suppliers S, Parts P, Catalog C
 WHERE P.pid = C.pid
 and S.sid = C.sid
-and S.sid ,S2.sname NOT IN(
-            SELECT S2.sid ,S2.sname
+and S.sid , S2.sname NOT IN(
+            SELECT S2.sid , S2.sname
             FROM Suppliers S2, Parts P2, Catalog C2
             WHERE S2.sid = C2.sid
             and P2.pid = C2.pid
