@@ -1,9 +1,13 @@
 -- Lab6
 
 -- • Find the total number of parts supplied by each supplier.
-SELECT COUNT(C.pid), C.sid
-FROM Catalog C
-GROUP BY C.sid;
+-- SELECT COUNT(C.pid), C.sid
+-- FROM Catalog C
+-- GROUP BY C.sid;
+SELECT COUNT(C.pid),S.sid,S.sname
+FROM Suppliers S, Catalog C
+WHERE S.sid = C.sid
+GROUP BY S.sid
 -- • Find the total number of parts supplied by each supplier who
 -- supplies at least 3 parts.
 -- SELECT COUNT(C.pid) AS PartCount,C.sid,S.sname
