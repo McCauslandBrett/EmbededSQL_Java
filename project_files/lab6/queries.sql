@@ -19,7 +19,17 @@ HAVING COUNT(C.pid) >= 3;
 --   -- print the name of the supplier and the total number of
 --   -- parts that he supplies.
 
-
+SELECT Suppliers.sname, COUNT(Catalog.pid)
+FROM Suppliers, Parts, Catalog 
+WHERE Parts.pid = Catalog.pid and Suppliers.sid = Catalog.sid
+and Suppliers.sid IN (SELECT Suppliers.sid
+                      FROM Suppliers, Parts, Catalog
+                      WHERE Suppliers.sid = Catalog.sid and Parts.pid = Catalog.pid and Parts.color = 'Green')
+                      and Suppliers.sid NOT IN (
+                          SELECT Suppliers.sid
+                          FROM Suppliers, Parts, Catalog
+                          WHERE Suppliers.sid = Catalog.sid and Parts.pid = Catalog.pid and Parts.Color != 'Green')
+                          GROUP BY Suppliers.sid
 -- SELECT OrderID
 -- FROM OrderDetails
 -- GROUP BY OrderID
