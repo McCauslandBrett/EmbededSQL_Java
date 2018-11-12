@@ -261,14 +261,14 @@ public class EmbeddedSQL {
 
    public static void Query2(EmbeddedSQL esql){
      //2. Find the total number of parts supplied by each supplier who supplies at least 3 parts");
-     // try{
-     //  String query = "SELECT COUNT(catalog.pid) AS PartCount, catalog.sid,FROM catalog, GROUP BY catalog.sid, HAVING COUNT(PartCount)>=3;";
-     //
-     //    int rowCount =esql.executeQuery(query);
-     //  System.out.println ("total row(s): " + rowCount);
-     // }catch(Exception e){
-     //    System.err.println (e.getMessage());
-     // }
+     try{
+      String query = "SELECT COUNT(catalog.pid) AS PartCount, catalog.sid,FROM catalog, GROUP BY catalog.sid, HAVING COUNT(PartCount)>=3;";
+
+        int rowCount =esql.executeQuery(query);
+      System.out.println ("total row(s): " + rowCount);
+     }catch(Exception e){
+        System.err.println (e.getMessage());
+     }
    }//end Query2
 
    public static void Query3(EmbeddedSQL esql){
