@@ -350,6 +350,6 @@ public class EmbeddedSQL {
    //  }catch(Exception e){
    //     System.err.println (e.getMessage());
    //  }
-   // }//end Query6
+  }//end Query6
 
 }//end EmbeddedSQL
