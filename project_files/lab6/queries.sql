@@ -19,7 +19,7 @@
 SELECT COUNT(C.pid),S.sid,S.sname
 FROM Suppliers S, Catalog C
 WHERE S.sid = C.sid
-and Suppliers.sid = Catalog.sid
+and S.sid = C.sid
 -- and S.sid
 -- IN (SELECT S1.sid
 --     FROM Suppliers S1, Parts P1, Catalog C1
