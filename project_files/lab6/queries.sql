@@ -45,7 +45,7 @@ and S.sid NOT IN(
             WHERE S2.sid = C2.sid
             and P2.pid = C2.pid
             and P2.Color != 'Green')
-            -- GROUP BY S2.sid
+            GROUP BY S2.sid
 
 -- -- For every supplier that supplies green part and red part,
 -- -- print the name of the supplier and the price of
