@@ -16,10 +16,10 @@ HAVING COUNT(C.pid) >= 3;
 --  -- For every supplier that supplies only green parts,
 --   -- print the name of the supplier and the total number of
 --   -- parts that he supplies.
-SELECT COUNT(C.pid),S.sname
-FROM Suppliers S, Parts P, Catalog C
-WHERE P.pid = C.pid
-and S.sid = C.sid
+SELECT COUNT(Catalog.pid), Suppliers.sname
+FROM Suppliers, Parts , Catalog
+WHERE Parts.pid = Catalog.pid
+and Suppliers.sid = Catalog.sid
 -- and S.sid
 -- IN (SELECT S1.sid
 --     FROM Suppliers S1, Parts P1, Catalog C1
