@@ -28,7 +28,18 @@ HAVING COUNT(C.pid) >= 3;
 --     and P1.pid= C1.pid
 --     and P1.color= 'Green')
 --     and S1.sid
-            NOT IN (
+            -- NOT IN (
+            -- SELECT S2.sid
+            -- FROM Suppliers S2, Parts P2, Catalog C2
+            -- WHERE S2.sid = C2.sid
+            -- and P2.pid = C2.pid
+            -- and P2.Color != 'Green')
+            -- GROUP BY S2.sid
+SELECT S.sname, COUNT(C.pid)
+FROM Suppliers S, Parts P, Catalog C
+WHERE P.pid = C.pid
+and S.sid = C.sid
+and S.sid NOT IN(
             SELECT S2.sid
             FROM Suppliers S2, Parts P2, Catalog C2
             WHERE S2.sid = C2.sid
