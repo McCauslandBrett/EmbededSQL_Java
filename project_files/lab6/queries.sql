@@ -30,10 +30,10 @@ GROUP BY C.sid;
 --                                     FROM parts P
 --                                     where P.color='green');
 
-SELECT S.sname, COUNT(*) as PartCount
-FROM Suppliers S, Catalog C, Parts P
-WHERE C.sid = S.id and P.id = C.pid and P.color = 'green'
-GROUP BY S.sname, S.id
+-- SELECT S.sname, COUNT(*) as PartCount
+-- FROM Suppliers S, Catalog C, Parts P
+-- WHERE C.sid = S.id and P.id = C.pid and P.color = 'green'
+-- GROUP BY S.sname, S.id
 
 
 -- For every supplier that supplies green part and red part,
