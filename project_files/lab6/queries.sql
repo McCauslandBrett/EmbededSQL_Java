@@ -20,64 +20,40 @@ HAVING COUNT(C.pid) >= 3;
 --   -- parts that he supplies.
 
 SELECT Suppliers.sname, COUNT(Catalog.pid)
-FROM Suppliers, Parts, Catalog 
-WHERE Parts.pid = Catalog.pid and Suppliers.sid = Catalog.sid
-and Suppliers.sid IN (SELECT Suppliers.sid
-                      FROM Suppliers, Parts, Catalog
-                      WHERE Suppliers.sid = Catalog.sid and Parts.pid = Catalog.pid and Parts.color = 'Green')
-                      and Suppliers.sid NOT IN (
-                          SELECT Suppliers.sid
-                          FROM Suppliers, Parts, Catalog
-                          WHERE Suppliers.sid = Catalog.sid and Parts.pid = Catalog.pid and Parts.Color != 'Green')
-                          GROUP BY Suppliers.sid
--- SELECT OrderID
--- FROM OrderDetails
--- GROUP BY OrderID
--- HAVING max(Quantity) > ALL (SELECT avg(Quantity)
---                             FROM OrderDetails
---                             GROUP BY OrderID);
-
-
--- SELECT COUNT(C.pid) AS PartCount, C.sid,P.color
--- FROM catalog C, parts P
--- GROUP BY C.sid
--- WHERE PartCount,C.sid,P.color = ALL(SELECT P.color
---                                     FROM parts P
---                                     where P.color='green');
-
--- SELECT S.sname, COUNT(*) as PartCount
--- FROM Suppliers S, Catalog C, Parts P
--- WHERE C.sid = S.id and P.id = C.pid and P.color = 'green'
--- GROUP BY S.sname, S.id
-
+FROM Suppliers, Parts, Catalog
+WHERE Parts.pid = Catalog.pid
+and Suppliers.sid = Catalog.sid
+and Suppliers.sid
+IN (SELECT Suppliers.sid
+    FROM Suppliers, Parts, Catalog
+    WHERE Suppliers.sid = Catalog.sid
+    and Parts.pid= Catalog.pid
+    and Parts.color= 'Green')
+    and Suppliers.sid
+    NOT IN (SELECT Suppliers.sid
+            FROM Suppliers, Parts, Catalog
+            WHERE Suppliers.sid = Catalog.sid
+            and Parts.pid = Catalog.pid
+            and Parts.Color != 'Green')
+            GROUP BY Suppliers.sid
 
 -- For every supplier that supplies green part and red part,
 -- print the name of the supplier and the price of
 -- the most expensive part that he supplies.
-
---
--- SELECT S.sname, MAX(C.cost) as Partmax
--- FROM Suppliers S, Catalog C, Parts P
--- WHERE C.sid = S.id and P.id = C.pid
--- GROUP BY S.id
--- WHERE C.sid IN
---    (SELECT DISTINCT C.sid
---     FROM Catalog C1, Parts P1
---     WHERE C1.pid = P1.id AND P1.color ='red'
---     INTERSECT
---     SELECT DISTINCT C2.sid
---     FROM Catalog C2, Parts P2
---     WHERE C2.pid=P2.id AND P2.color ='green';
---     )
---
--- SELECT	 S.sname, MAX(C.cost) AS Partmax
--- FROM     suppliers AS S, parts AS P, catalog AS C
--- WHERE    P.id = C.pid AND C.sid = S.id
--- GROUP BY S.sname, S.id,P.color
--- HAVING   P.color IN ('green','red')
---
--- SELECT   s.sname, MIN(c.cost)as MIC
--- FROM     suppliers AS s, parts AS p, catalog AS c
--- WHERE    p.id = c.pid AND c.sid = s.id
--- GROUP BY s.sname, s.id,p.color
--- HAVING   p.color IN ('green','red')
+SELECT suppliers.sname, MAX(catalog.cost)
+FROM suppliers, catalog, parts
+WHERE parts.pid = catalog.pid
+and suppliers.sid = Catalog.sid
+and suppliers.sid
+IN(SELECT suppliers.sid
+   FROM suppliers, parts , catalog
+   WHERE suppliers.sid=catalog.sid
+   and parts.pid = catalog.pid
+   and parts.color = 'Red')
+   and suppliers.sid
+   IN(SELECT suppliers.sid
+      FROM suppliers,parts,catalog
+      WHERE suppliers.sid = catalog.sid
+      and parts.pid=catalog.pid
+      and parts.color = 'Green')
+      Group BY suppliers.sname
