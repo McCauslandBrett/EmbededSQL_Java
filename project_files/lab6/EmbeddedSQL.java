@@ -284,61 +284,38 @@ public class EmbeddedSQL {
 
    public static void Query4(EmbeddedSQL esql){
      //4. For every supplier that supplies green part and red part, print the name and the price of the most expensive part that he supplies");
-     // try{
-     //  String query =
-     //  "SELECT Suppliers.sname, MAX(Catalog.cost)
-     //  FROM Suppliers, Catalog, Parts
-     //  WHERE Parts.pid = Catalog.pid
-     //  and Suppliers.sid = Catalog.sid
-     //  and Suppliers.sid
-     //      IN(SELECT Suppliers.sid
-     //         FROM Suppliers, Parts , Catalog
-     //         WHERE Suppliers.sid = Catalog.sid
-     //         and Parts.pid = Catalog.pid
-     //         and Parts.color = 'Red')
-     //  and Suppliers.sid
-     //       IN(SELECT Suppliers.sid
-     //          FROM Suppliers,Parts,Catalog
-     //          WHERE Suppliers.sid = Catalog.sid
-     //          and Parts.pid=Catalog.pid
-     //          and Parts.color = 'Green')
-     //  Group BY Suppliers.sname";
-     //  esql.executeQuery(query);
-     // }catch(Exception e){
-     //    System.err.println (e.getMessage());
-     // }
+     try{
+      String query = "SELECT Suppliers.sname, MAX(Catalog.cost) FROM Suppliers, Catalog, Parts WHERE Parts.pid = Catalog.pid and Suppliers.sid = Catalog.sid and Suppliers.sid IN(SELECT Suppliers.sid FROM Suppliers, Parts , Catalog WHERE Suppliers.sid = Catalog.sid and Parts.pid = Catalog.pid and Parts.color = 'Red') and Suppliers.sid IN(SELECT Suppliers.sid FROM Suppliers,Parts,Catalog WHERE Suppliers.sid = Catalog.sid and Parts.pid=Catalog.pid and Parts.color = 'Green') Group Suppliers.sname";
+      esql.executeQuery(query);
+     }catch(Exception e){
+        System.err.println (e.getMessage());
+     }
    }//end Query4
 
    public static void Query5(EmbeddedSQL esql){
      //5. Find the name of parts with cost lower than $_____");
-     // try{
-     //  String query =
-     //  "SELECT P.pname
-     //   FROM Parts ,Catalog
-     //   WHERE Parts.pid=Catalog.pid AND Catalog.cost < ";
-     //   System.out.print("\tEnter cost: $");
-     //   String input = in.readLine();
-     //   query += input;
-     //  esql.executeQuery(query);
-     // }catch(Exception e){
-     //    System.err.println (e.getMessage());
-     // }
+     try{
+      String query = "SELECT P.pname FROM Parts ,Catalog WHERE Parts.pid=Catalog.pid AND Catalog.cost < ";
+       System.out.print("\tEnter cost: $");
+       String input = in.readLine();
+       query += input;
+      esql.executeQuery(query);
+     }catch(Exception e){
+        System.err.println (e.getMessage());
+     }
    }//end Query5
 
    public static void Query6(EmbeddedSQL esql){
     //6. Find the address of the suppliers who supply _____________ (pname)");
-   //  try{
-   //   String query =
-   //   "SELECT S.address
-   //    FROM Suppliers S, Catalog C, Parts P
-   //    WHERE P.pid=C.pid AND AND S.sid= C.sid AND P.pname= ";
-   //    System.out.print("\tEnter Part Name: ");
-   //    String input = in.readLine();
-   //    query += input;
-   //   esql.executeQuery(query);
-   //  }catch(Exception e){
-   //     System.err.println (e.getMessage());
-   //  }
+    try{
+      String query = "SELECT S.address FROM Suppliers S, Catalog C, Parts P WHERE P.pid=C.pid AND AND S.sid= C.sid AND P.pname= ";
+      System.out.print("\tEnter Part Name: ");
+      String input = in.readLine();
+      query += input + ";";
+     esql.executeQuery(query);
+    }catch(Exception e){
+       System.err.println (e.getMessage());
+    }
   }//end Query6
 
 }//end EmbeddedSQL
