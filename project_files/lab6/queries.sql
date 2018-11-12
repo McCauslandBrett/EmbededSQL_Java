@@ -1,18 +1,18 @@
 -- Lab6
 
 -- • Find the total number of parts supplied by each supplier.
-SELECT COUNT(C.pid), C.sid
-FROM Catalog C
-GROUP BY C.sid;
-
--- • Find the total number of parts supplied by each supplier who
--- supplies at least 3 parts.
-
-SELECT COUNT(C.pid),S.sid,S.sname
-FROM Suppliers S, Catalog C
-WHERE S.sid = C.sid
-GROUP BY S.sid
-HAVING COUNT(C.pid) >= 3;
+-- SELECT COUNT(C.pid), C.sid
+-- FROM Catalog C
+-- GROUP BY C.sid;
+--
+-- -- • Find the total number of parts supplied by each supplier who
+-- -- supplies at least 3 parts.
+--
+-- SELECT COUNT(C.pid),S.sid,S.sname
+-- FROM Suppliers S, Catalog C
+-- WHERE S.sid = C.sid
+-- GROUP BY S.sid
+-- HAVING COUNT(C.pid) >= 3;
 --  -- For every supplier that supplies only green parts,
 --   -- print the name of the supplier and the total number of
 --   -- parts that he supplies.
