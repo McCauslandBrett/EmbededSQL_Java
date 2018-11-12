@@ -284,12 +284,12 @@ public class EmbeddedSQL {
 
    public static void Query4(EmbeddedSQL esql){
      //4. For every supplier that supplies green part and red part, print the name and the price of the most expensive part that he supplies");
-     // try{
-     //  String query = "SELECT Suppliers.sname, MAX(Catalog.cost) FROM Suppliers, Catalog, Parts WHERE Parts.pid = Catalog.pid and Suppliers.sid = Catalog.sid and Suppliers.sid IN(SELECT Suppliers.sid FROM Suppliers, Parts , Catalog WHERE Suppliers.sid = Catalog.sid and Parts.pid = Catalog.pid and Parts.color = 'Red') and Suppliers.sid IN(SELECT Suppliers.sid FROM Suppliers,Parts,Catalog WHERE Suppliers.sid = Catalog.sid and Parts.pid=Catalog.pid and Parts.color = 'Green') Group Suppliers.sname";
-     //  esql.executeQuery(query);
-     // }catch(Exception e){
-     //    System.err.println (e.getMessage());
-     // }
+     try{
+      String query = "SELECT Suppliers.sname, MAX(Catalog.cost) FROM Suppliers, Catalog, Parts WHERE Parts.pid = Catalog.pid and Suppliers.sid = Catalog.sid and Suppliers.sid IN(SELECT Suppliers.sid FROM Suppliers, Parts , Catalog WHERE Suppliers.sid = Catalog.sid and Parts.pid = Catalog.pid and Parts.color = 'Red') and Suppliers.sid IN(SELECT Suppliers.sid FROM Suppliers,Parts,Catalog WHERE Suppliers.sid = Catalog.sid and Parts.pid=Catalog.pid and Parts.color = 'Green') Group Suppliers.sname";
+      esql.executeQuery(query);
+     }catch(Exception e){
+        System.err.println (e.getMessage());
+     }
    }//end Query4
 
    public static void Query5(EmbeddedSQL esql){
