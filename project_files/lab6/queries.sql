@@ -16,9 +16,8 @@ HAVING COUNT(C.pid) >= 3;
 --  -- For every supplier that supplies only green parts,
 --   -- print the name of the supplier and the total number of
 --   -- parts that he supplies.
-
--- SELECT S.sname, COUNT(C.pid)
--- FROM Suppliers S, Parts P, Catalog C
+SELECT COUNT(C.pid),S.sname
+FROM Suppliers S, Parts P, Catalog C
 -- WHERE P.pid = C.pid
 -- and S.sid = C.sid
 -- and S.sid
@@ -35,17 +34,26 @@ HAVING COUNT(C.pid) >= 3;
             -- and P2.pid = C2.pid
             -- and P2.Color != 'Green')
             -- GROUP BY S2.sid
-SELECT COUNT(C.pid)
-FROM Suppliers S, Parts P, Catalog C
-WHERE P.pid = C.pid
-and S.sid = C.sid
-and S.sid NOT IN(
-            SELECT S2.sid
-            FROM Suppliers S2, Parts P2, Catalog C2
-            WHERE S2.sid = C2.sid
-            and P2.pid = C2.pid
-            and P2.Color != 'Green'
-          )
+-- SELECT COUNT(C.pid)
+-- FROM Suppliers S, Parts P, Catalog C
+-- WHERE P.pid = C.pid
+-- and S.sid = C.sid
+-- and S.sid NOT IN(
+--             SELECT S2.sid
+--             FROM Suppliers S2, Parts P2, Catalog C2
+--             WHERE S2.sid = C2.sid
+--             and P2.pid = C2.pid
+--             and P2.Color != 'Green'
+--           );
+
+SELECT S.sname, COUNT(*) as PartCount
+FROM Suppliers S, Catalog C, Parts P
+WHERE C.sid = S.id and P.id = C.pid and P.color = 'GREEN'
+GROUP BY S.sname, S.id
+
+
+
+
 
 
 -- -- For every supplier that supplies green part and red part,
