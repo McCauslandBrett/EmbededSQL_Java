@@ -296,10 +296,9 @@ public class EmbeddedSQL {
    public static void Query5(EmbeddedSQL esql){
      //5. Find the name of parts with cost lower than $_____");
      try{
-      String query = "SELECT P.pname FROM Parts ,Catalog WHERE Parts.pid=Catalog.pid AND Catalog.cost < ";
        System.out.print("\tEnter cost: $");
        String input = in.readLine();
-       query += input;
+       String query = "SELECT parts.pname FROM catalog, parts WHERE catalog.pid = parts.pid and catalog.cost < " + input + " GROUP BY parts.pname";
        int rowCount = esql.executeQuery(query);
        System.out.println ("total row(s): " + rowCount);
      }catch(Exception e){
@@ -310,10 +309,9 @@ public class EmbeddedSQL {
    public static void Query6(EmbeddedSQL esql){
     //6. Find the address of the suppliers who supply _____________ (pname)");
     try{
-      String query = "SELECT S.address FROM Suppliers S, Catalog C, Parts P WHERE P.pid=C.pid AND AND S.sid= C.sid AND P.pname= ";
       System.out.print("\tEnter Part Name: ");
       String input = in.readLine();
-      query += input + ";";
+      String query = "SELECT suppliers.address FROM suppliers, parts, catalog WHERE suppliers.sid = catalog.sid AND parts.pid = catalog.pid AND parts.pname = \'" + input + " \'";
      esql.executeQuery(query);
     }catch(Exception e){
        System.err.println (e.getMessage());
