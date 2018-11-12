@@ -251,10 +251,7 @@ public class EmbeddedSQL {
    public static void Query1(EmbeddedSQL esql){
      //1. Find the total number of parts supplied by each supplier");
      try{
-        String query = "
-        SELECT COUNT(catalog.pid), catalog.sid
-        FROM catalog
-        GROUP BY catalog.sid;";
+        String query = "SELECT COUNT(catalog.pid), catalog.sid FROM catalog GROUP BY catalog.sid;";
         esql.executeQuery(query);
      }catch(Exception e){
         System.err.println (e.getMessage());
