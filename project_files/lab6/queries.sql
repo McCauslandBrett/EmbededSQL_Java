@@ -16,9 +16,9 @@
 --  -- For every supplier that supplies only green parts,
 --   -- print the name of the supplier and the total number of
 --   -- parts that he supplies.
-SELECT COUNT(Catalog.pid), Suppliers.sname
-FROM Suppliers, Parts , Catalog
-WHERE Parts.pid = Catalog.pid
+SELECT COUNT(C.pid),S.sid,S.sname
+FROM Suppliers S, Catalog C
+WHERE S.sid = C.sid
 and Suppliers.sid = Catalog.sid
 -- and S.sid
 -- IN (SELECT S1.sid
@@ -50,7 +50,7 @@ and Suppliers.sid = Catalog.sid
 -- FROM Suppliers S, Catalog C, Parts P
 -- WHERE C.sid = S.id and P.id = C.pid and P.color = 'GREEN'
 -- GROUP BY S.sname, S.id
--- 
+--
 
 
 
