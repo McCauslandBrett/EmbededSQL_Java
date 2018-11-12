@@ -1,30 +1,8 @@
--- -- • Find the pid of parts with cost lower than 10
--- SELECT pid
--- FROM Catalog
--- WHERE cost < 10;
--- -- • Find the name of parts with cost lower than 10
--- SELECT P.pname
--- FROM Parts P, Catalog C
--- WHERE C.cost<10 AND P.pid=C.pid;
--- -- • Find the address of the suppliers who supply “Fire Hydrant Cap”
--- SELECT S.address
--- FROM Suppliers S, Catalog C, Parts P
--- WHERE P.pid=C.pid AND P.pname='Fire Hydrant Cap' AND S.sid= C.sid ;
--- -- • Find the name of the suppliers who supply green parts
--- SELECT S.sname
--- FROM Suppliers S, Catalog C, Parts P
--- WHERE P.pid=C.pid AND P.color='Green' AND S.sid= C.sid ;
--- -- • For each supplier, list the supplier’s name along with all parts’
--- name that it supply
--- SELECT S.sname,P.pname
--- FROM Suppliers S, Catalog C, Parts P
--- WHERE P.pid=C.pid AND S.sid= C.sid ;
-
 -- Lab6
 
 -- • Find the total number of parts supplied by each supplier.
-SELECT COUNT(C.pid), C.sid,
-FROM catalog C,
+SELECT COUNT(C.pid), C.sid
+FROM catalog C
 GROUP BY C.sid;
 -- • Find the total number of parts supplied by each supplier who
 -- supplies at least 3 parts.
@@ -32,29 +10,59 @@ SELECT COUNT(C.pid) AS PartCount, C.sid,
 FROM catalog C,
 GROUP BY C.sid,
 HAVING COUNT(PartCount)>3;
+--  -- For every supplier that supplies only green parts,
+--   -- print the name of the supplier and the total number of
+--   -- parts that he supplies.
 
-SELECT OrderID
-FROM OrderDetails
-GROUP BY OrderID
-HAVING max(Quantity) > ALL (SELECT avg(Quantity)
-                            FROM OrderDetails
-                            GROUP BY OrderID);
--- • For every supplier that supplies only green parts,
--- print the name of the supplier and the total number of parts that he supplies.
+
+-- SELECT OrderID
+-- FROM OrderDetails
+-- GROUP BY OrderID
+-- HAVING max(Quantity) > ALL (SELECT avg(Quantity)
+--                             FROM OrderDetails
+--                             GROUP BY OrderID);
+
+
 -- SELECT COUNT(C.pid) AS PartCount, C.sid,P.color
 -- FROM catalog C, parts P
 -- GROUP BY C.sid
 -- WHERE PartCount,C.sid,P.color = ALL(SELECT P.color
 --                                     FROM parts P
 --                                     where P.color='green');
--- WHERE ProductID = ALL (SELECT ProductId
---                        FROM OrderDetails
---                        WHERE Quantity = 6 OR Quantity = 2);
 
--- IN AND NOT IN
---
--- GROUP BY C.sid;
+SELECT S.sname, COUNT(*) as PartCount
+FROM Suppliers S, Catalog C, Parts P
+WHERE C.sid = S.id and P.id = C.pid and P.color = 'green'
+GROUP BY S.sname, S.id
 
--- • For every supplier that supplies green part and red part,
+
+-- For every supplier that supplies green part and red part,
 -- print the name of the supplier and the price of
 -- the most expensive part that he supplies.
+
+--
+-- SELECT S.sname, MAX(C.cost) as Partmax
+-- FROM Suppliers S, Catalog C, Parts P
+-- WHERE C.sid = S.id and P.id = C.pid
+-- GROUP BY S.id
+-- WHERE C.sid IN
+--    (SELECT DISTINCT C.sid
+--     FROM Catalog C1, Parts P1
+--     WHERE C1.pid = P1.id AND P1.color ='red'
+--     INTERSECT
+--     SELECT DISTINCT C2.sid
+--     FROM Catalog C2, Parts P2
+--     WHERE C2.pid=P2.id AND P2.color ='green';
+--     )
+--
+-- SELECT	 S.sname, MAX(C.cost) AS Partmax
+-- FROM     suppliers AS S, parts AS P, catalog AS C
+-- WHERE    P.id = C.pid AND C.sid = S.id
+-- GROUP BY S.sname, S.id,P.color
+-- HAVING   P.color IN ('green','red')
+--
+-- SELECT   s.sname, MIN(c.cost)as MIC
+-- FROM     suppliers AS s, parts AS p, catalog AS c
+-- WHERE    p.id = c.pid AND c.sid = s.id
+-- GROUP BY s.sname, s.id,p.color
+-- HAVING   p.color IN ('green','red')
