@@ -33,20 +33,20 @@ GROUP BY S.sid;
 -- -- For every supplier that supplies green part and red part,
 -- -- print the name of the supplier and the price of
 -- -- the most expensive part that he supplies.
--- SELECT Suppliers.sname, MAX(Catalog.cost)
--- FROM Suppliers, Catalog, Parts
--- WHERE Parts.pid = Catalog.pid
--- and Suppliers.sid = Catalog.sid
--- and Suppliers.sid
--- IN(SELECT Suppliers.sid
---    FROM Suppliers, Parts , Catalog
---    WHERE Suppliers.sid = Catalog.sid
---    and Parts.pid = Catalog.pid
---    and Parts.color = 'Red')
---    and Suppliers.sid
---    IN(SELECT Suppliers.sid
---       FROM Suppliers,Parts,Catalog
---       WHERE Suppliers.sid = Catalog.sid
---       and Parts.pid=Catalog.pid
---       and Parts.color = 'Green')
--- Group BY Suppliers.sname
+SELECT Suppliers.sname, MAX(Catalog.cost)
+FROM Suppliers, Catalog, Parts
+WHERE Parts.pid = Catalog.pid
+and Suppliers.sid = Catalog.sid
+and Suppliers.sid
+    IN(SELECT Suppliers.sid
+       FROM Suppliers, Parts , Catalog
+       WHERE Suppliers.sid = Catalog.sid
+       and Parts.pid = Catalog.pid
+       and Parts.color = 'Red')
+and Suppliers.sid
+     IN(SELECT Suppliers.sid
+        FROM Suppliers,Parts,Catalog
+        WHERE Suppliers.sid = Catalog.sid
+        and Parts.pid=Catalog.pid
+        and Parts.color = 'Green')
+Group BY Suppliers.sname
